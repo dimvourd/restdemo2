@@ -51,10 +51,19 @@ public class StudentController {
 
         // return ResponseEntity
         ResponseEntity<StudentErrorResponse> responseEntity = new ResponseEntity<>(response, HttpStatus.NOT_FOUND);
-
-
         return responseEntity;
     }
 
+    @ExceptionHandler
+    public ResponseEntity<StudentErrorResponse> studentExceptionHandler(Exception ex){
+
+
+        // create a StudentErrorResponse
+        StudentErrorResponse response = new StudentErrorResponse(HttpStatus.BAD_REQUEST.value(), ex.getMessage(), System.currentTimeMillis());
+
+        // return ResponseEntity
+        ResponseEntity<StudentErrorResponse> responseEntity = new ResponseEntity<>(response, HttpStatus.BAD_REQUEST);
+        return responseEntity;
+    }
 
 }
